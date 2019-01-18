@@ -6,21 +6,21 @@ import com.yiqiniu.easytrans.protocol.EasyTransRequest;
 
 public class MessageRecordContent extends DemiLeftContent {
 
-	private static final long serialVersionUID = 1L;
-	
-	private EasyTransRequest<?,?> params;
+    private static final long serialVersionUID = 1L;
 
-	public EasyTransRequest<?,?> getParams() {
-		return params;
-	}
+    private EasyTransRequest<?, ?> params;
 
-	public void setParams(EasyTransRequest<?,?> message) {
-		this.params = message;
-	}
+    public EasyTransRequest<?, ?> getParams() {
+        return params;
+    }
 
-	@Override
-	public int getLogType() {
-		return ContentType.MessageRecord.getContentTypeId();
-	}
-	
+    public void setParams(EasyTransRequest<?, ?> message) {
+        this.params = message;
+    }
+
+    @Override
+    public int getLogType() {
+        return ContentType.MessageRecord.getContentTypeId();
+    }
+
 }

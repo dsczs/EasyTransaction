@@ -1,33 +1,34 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
     <name>EasyTransaction transaction log RDBS implement</name>
-  
-  <artifactId>easytrans-log-database-starter</artifactId>
 
-  	<parent>
-		  <groupId>com.yiqiniu.easytrans</groupId>
-		  <artifactId>easytrans</artifactId>
-		  <version>${revision}</version>
-		  <relativePath>../pom.xml</relativePath>
-	</parent>
-  
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-	</properties>
+    <artifactId>easytrans-log-database-starter</artifactId>
 
-<dependencies>
-	<dependency>
-		<groupId>com.yiqiniu.easytrans</groupId>
-		<artifactId>easytrans-core</artifactId>
-	</dependency>
+    <parent>
+        <groupId>com.yiqiniu.easytrans</groupId>
+        <artifactId>easytrans</artifactId>
+        <version>${revision}</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
 
-	<dependency>
-		<groupId>com.alibaba</groupId>
-		<artifactId>druid</artifactId>
-		<version>1.1.5</version>
-	</dependency>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.yiqiniu.easytrans</groupId>
+            <artifactId>easytrans-core</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid</artifactId>
+            <version>1.1.5</version>
+        </dependency>
 
 
-</dependencies>
-  
+    </dependencies>
+
 </project>

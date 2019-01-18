@@ -5,5 +5,5 @@ import com.alibaba.dubbo.rpc.service.GenericService;
 import com.yiqiniu.easytrans.protocol.BusinessIdentifer;
 
 public interface DubboServiceCustomizationer {
-	void customDubboService(BusinessIdentifer businessIdentifer,ServiceConfig<GenericService> serviceConfig);
+    void customDubboService(BusinessIdentifer businessIdentifer, ServiceConfig<GenericService> serviceConfig);
 }

@@ -4,7 +4,7 @@ import com.yiqiniu.easytrans.executor.ReliableMessageMethodExecutor;
 import com.yiqiniu.easytrans.protocol.EasyTransRequest;
 
 /**
- *	transaction message
+ * transaction message
  */
-public interface ReliableMessagePublishRequest extends EasyTransRequest<PublishResult,ReliableMessageMethodExecutor>{
+public interface ReliableMessagePublishRequest extends EasyTransRequest<PublishResult, ReliableMessageMethodExecutor> {
 }

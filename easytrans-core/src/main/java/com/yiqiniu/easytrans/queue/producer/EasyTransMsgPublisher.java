@@ -10,5 +10,5 @@ public interface EasyTransMsgPublisher {
      * @param message
      * @return message sent info
      */
-	EasyTransMsgPublishResult publish(String topic, String tag, String key, Map<String,Object> header ,byte[] msgByte);
+    EasyTransMsgPublishResult publish(String topic, String tag, String key, Map<String, Object> header, byte[] msgByte);
 }

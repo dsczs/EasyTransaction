@@ -5,10 +5,10 @@ import com.yiqiniu.easytrans.log.vo.DemiRightContent;
 
 public class TransactionFinishedContent extends DemiRightContent {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@Override
-	public int getLogType() {
-		return ContentType.TransactionFininshed.getContentTypeId();
-	}
+    @Override
+    public int getLogType() {
+        return ContentType.TransactionFininshed.getContentTypeId();
+    }
 }

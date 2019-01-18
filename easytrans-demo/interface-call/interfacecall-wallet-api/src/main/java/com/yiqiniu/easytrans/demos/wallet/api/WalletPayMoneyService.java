@@ -11,48 +11,50 @@ import java.io.Serializable;
  * 4. the return parameter can also be Future<>, the generalization parameter class should be like point 3
  */
 public interface WalletPayMoneyService {
-	
-	WalletPayResponseVO pay(WalletPayRequestVO request);
-	
-	public static class WalletPayRequestVO implements Serializable {
 
-		private static final long serialVersionUID = 1L;
+    WalletPayResponseVO pay(WalletPayRequestVO request);
 
-		private Integer userId;
-		
-		private Long payAmount;
+    public static class WalletPayRequestVO implements Serializable {
 
-		public Long getPayAmount() {
-			return payAmount;
-		}
+        private static final long serialVersionUID = 1L;
 
-		public void setPayAmount(Long payAmount) {
-			this.payAmount = payAmount;
-		}
+        private Integer userId;
 
-		public Integer getUserId() {
-			return userId;
-		}
+        private Long payAmount;
 
-		public void setUserId(Integer userId) {
-			this.userId = userId;
-		}
-	}
-	
-	public static class WalletPayResponseVO implements Serializable{
-		private static final long serialVersionUID = 1L;
-		private Long freezeAmount;
-		public Long getFreezeAmount() {
-			return freezeAmount;
-		}
-		public void setFreezeAmount(Long freezeAmount) {
-			this.freezeAmount = freezeAmount;
-		}
-		
-		@Override
-		public String toString() {
-			return "WalletPayTccMethodResult [freezeAmount=" + freezeAmount
-					+ "]";
-		}
-	}
+        public Long getPayAmount() {
+            return payAmount;
+        }
+
+        public void setPayAmount(Long payAmount) {
+            this.payAmount = payAmount;
+        }
+
+        public Integer getUserId() {
+            return userId;
+        }
+
+        public void setUserId(Integer userId) {
+            this.userId = userId;
+        }
+    }
+
+    public static class WalletPayResponseVO implements Serializable {
+        private static final long serialVersionUID = 1L;
+        private Long freezeAmount;
+
+        public Long getFreezeAmount() {
+            return freezeAmount;
+        }
+
+        public void setFreezeAmount(Long freezeAmount) {
+            this.freezeAmount = freezeAmount;
+        }
+
+        @Override
+        public String toString() {
+            return "WalletPayTccMethodResult [freezeAmount=" + freezeAmount
+                    + "]";
+        }
+    }
 }

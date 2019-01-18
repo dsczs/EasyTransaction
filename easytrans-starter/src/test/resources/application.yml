@@ -1,14 +1,14 @@
 spring:
   application:
     name: trx-test-service  # the same with com.yiqiniu.easytrans.test.Constant.APPID
- 
+
 debug: true
 
 # RIBBON用，也可以直接开启Eureka
 trx-test-service:
   ribbon:
     listOfServers: localhost:8080
-    
+
 logging:
   level:
     root: info
@@ -59,10 +59,10 @@ easytrans:
           value.serializer: org.apache.kafka.common.serialization.ByteArraySerializer
       consumer-cfg:
         reconsume: # when error occur,when the message will be reconsume.for efficent,please keep the array below small.
-#          - [3000,3] # retry every 3000 millseconds,for 3 times,after 3 time faliures will move to the next retry level
-#          - [60000,5] # retry every 1 minutes,for 3 times,after 3 time faliures will move to the next retry level
-#          - [300000,3] # retry every 5 minutes,for 3 times,after 3 time faliures will move to the next retry level
-#          - [3600000] # retry every 1 hour,forever
+          #          - [3000,3] # retry every 3000 millseconds,for 3 times,after 3 time faliures will move to the next retry level
+          #          - [60000,5] # retry every 1 minutes,for 3 times,after 3 time faliures will move to the next retry level
+          #          - [300000,3] # retry every 5 minutes,for 3 times,after 3 time faliures will move to the next retry level
+          #          - [3600000] # retry every 1 hour,forever
           - [1000,1] # dead message queue test, you should use the config above in your business 
           - [2000,1]
           - [3000]
@@ -94,7 +94,7 @@ easytrans:
       consumer:
         trx-test-service:
           context: /easytrans
-        
+
     dubbo:
       enabled: false
       dubbo-default-timeout: 2000

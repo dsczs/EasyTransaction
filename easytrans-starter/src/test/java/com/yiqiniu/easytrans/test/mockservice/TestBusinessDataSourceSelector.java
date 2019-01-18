@@ -1,81 +1,80 @@
 package com.yiqiniu.easytrans.test.mockservice;
 
-import javax.annotation.Resource;
-import javax.sql.DataSource;
-
+import com.yiqiniu.easytrans.datasource.DataSourceSelector;
+import com.yiqiniu.easytrans.protocol.EasyTransRequest;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.PlatformTransactionManager;
 
-import com.yiqiniu.easytrans.datasource.DataSourceSelector;
-import com.yiqiniu.easytrans.protocol.EasyTransRequest;
+import javax.annotation.Resource;
+import javax.sql.DataSource;
 
 @Component
 public class TestBusinessDataSourceSelector implements DataSourceSelector {
 
-	@Resource
-	private ApplicationContext ctx;
-	
-	@Override
-	public DataSource selectDataSource(String appId, String busCode, long trxId) {
-		if(busCode.equals("default")) {
-			busCode = "whole";
-		}
-		if(appId != null){
-			//无论是否递归的业务都是同一个数据源
-			busCode = busCode.replace("Cascade", "");
-			busCode = busCode.replace("sagaP", "p");
+    @Resource
+    private ApplicationContext ctx;
 
-			return ctx.getBean(busCode, DataSource.class);
-		}else{
-			return ctx.getBean("whole", DataSource.class);
-		}
-	}
+    @Override
+    public DataSource selectDataSource(String appId, String busCode, long trxId) {
+        if (busCode.equals("default")) {
+            busCode = "whole";
+        }
+        if (appId != null) {
+            //无论是否递归的业务都是同一个数据源
+            busCode = busCode.replace("Cascade", "");
+            busCode = busCode.replace("sagaP", "p");
 
-	@Override
-	public DataSource selectDataSource(String appId, String busCode,
-			EasyTransRequest<?, ?> request) {
-		
-		if(busCode.equals("default")) {
-			busCode = "whole";
-		}
-		
-		if(appId != null){
-			busCode = busCode.replace("Cascade", "");
-			busCode = busCode.replace("sagaP", "p");
+            return ctx.getBean(busCode, DataSource.class);
+        } else {
+            return ctx.getBean("whole", DataSource.class);
+        }
+    }
 
-			return ctx.getBean(busCode, DataSource.class);
-		}else{
-			return ctx.getBean("whole", DataSource.class);
-		}
-	}
+    @Override
+    public DataSource selectDataSource(String appId, String busCode,
+                                       EasyTransRequest<?, ?> request) {
 
-	@Override
-	public PlatformTransactionManager selectTransactionManager(String appId, String busCode, long trxId) {
-		
-		if(busCode.equals("default")) {
-			busCode = "whole";
-		}
-		
-		if(appId != null){
-			busCode = busCode.replace("Cascade", "");
-			busCode = busCode.replace("sagaP", "p");
+        if (busCode.equals("default")) {
+            busCode = "whole";
+        }
 
-			return ctx.getBean(busCode+"TransactionManager", PlatformTransactionManager.class);
-		}else{
-			return ctx.getBean("wholeTransactionManager", PlatformTransactionManager.class);
-		}
-	}
+        if (appId != null) {
+            busCode = busCode.replace("Cascade", "");
+            busCode = busCode.replace("sagaP", "p");
 
-	@Override
-	public PlatformTransactionManager selectTransactionManager(String appId, String busCode, EasyTransRequest<?, ?> request) {
-		if(appId != null){
-			busCode = busCode.replace("Cascade", "");
-			busCode = busCode.replace("sagaP", "p");
-			return ctx.getBean(busCode+"TransactionManager", PlatformTransactionManager.class);
-		}else{
-			return ctx.getBean("wholeTransactionManager", PlatformTransactionManager.class);
-		}
-	}
+            return ctx.getBean(busCode, DataSource.class);
+        } else {
+            return ctx.getBean("whole", DataSource.class);
+        }
+    }
+
+    @Override
+    public PlatformTransactionManager selectTransactionManager(String appId, String busCode, long trxId) {
+
+        if (busCode.equals("default")) {
+            busCode = "whole";
+        }
+
+        if (appId != null) {
+            busCode = busCode.replace("Cascade", "");
+            busCode = busCode.replace("sagaP", "p");
+
+            return ctx.getBean(busCode + "TransactionManager", PlatformTransactionManager.class);
+        } else {
+            return ctx.getBean("wholeTransactionManager", PlatformTransactionManager.class);
+        }
+    }
+
+    @Override
+    public PlatformTransactionManager selectTransactionManager(String appId, String busCode, EasyTransRequest<?, ?> request) {
+        if (appId != null) {
+            busCode = busCode.replace("Cascade", "");
+            busCode = busCode.replace("sagaP", "p");
+            return ctx.getBean(busCode + "TransactionManager", PlatformTransactionManager.class);
+        } else {
+            return ctx.getBean("wholeTransactionManager", PlatformTransactionManager.class);
+        }
+    }
 
 }

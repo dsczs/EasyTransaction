@@ -6,30 +6,30 @@ import com.yiqiniu.easytrans.protocol.EasyTransRequest;
 
 public class PreSagaTccCallContent extends DemiLeftContent {
 
-	private static final long serialVersionUID = 1L;
-	
-	/**
-	 * 调用的参数
-	 */
-	private EasyTransRequest<?,?> params;
+    private static final long serialVersionUID = 1L;
 
-	@Override
-	public int getLogType() {
-		return ContentType.PreSagaTccCall.getContentTypeId();
-	}
+    /**
+     * 调用的参数
+     */
+    private EasyTransRequest<?, ?> params;
 
-	public EasyTransRequest<?,?> getParams() {
-		return params;
-	}
+    @Override
+    public int getLogType() {
+        return ContentType.PreSagaTccCall.getContentTypeId();
+    }
 
-	public void setParams(EasyTransRequest<?,?> params) {
-		this.params = params;
-	}
+    public EasyTransRequest<?, ?> getParams() {
+        return params;
+    }
 
-	@Override
-	public String toString() {
-		return "PreSagaTccCallContent [params=" + params + "]";
-	}
-	
-	
+    public void setParams(EasyTransRequest<?, ?> params) {
+        this.params = params;
+    }
+
+    @Override
+    public String toString() {
+        return "PreSagaTccCallContent [params=" + params + "]";
+    }
+
+
 }

@@ -1,74 +1,74 @@
 package com.yiqiniu.easytrans.log.impl.database;
 
-import java.util.Map;
-
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-/** 
-* @author xudeyou 
-*/
+import java.util.Map;
 
-@ConfigurationProperties(prefix="easytrans.log.database")
+/**
+ * @author xudeyou
+ */
+
+@ConfigurationProperties(prefix = "easytrans.log.database")
 public class DatabaseTransactionLogProperties {
-	
-	private boolean logCleanEnabled = true;
-	
-	private int logReservedDays = 14;
-	
-	private String logCleanTime = "01:20:00";
-	
-	private Boolean enabled;
-	
-	private String tablePrefix;
-	
-	private Map<String,String> druid;
-	
-	public String getTablePrefix() {
-		return tablePrefix;
-	}
 
-	public void setTablePrefix(String tablePrefix) {
-		this.tablePrefix = tablePrefix;
-	}
+    private boolean logCleanEnabled = true;
 
-	public Map<String, String> getDruid() {
-		return druid;
-	}
+    private int logReservedDays = 14;
 
-	public void setDruid(Map<String, String> druid) {
-		this.druid = druid;
-	}
+    private String logCleanTime = "01:20:00";
 
-	public Boolean getEnabled() {
-		return enabled;
-	}
+    private Boolean enabled;
 
-	public void setEnabled(Boolean enabled) {
-		this.enabled = enabled;
-	}
+    private String tablePrefix;
 
-	public int getLogReservedDays() {
-		return logReservedDays;
-	}
+    private Map<String, String> druid;
 
-	public void setLogReservedDays(int logReservedDays) {
-		this.logReservedDays = logReservedDays;
-	}
+    public String getTablePrefix() {
+        return tablePrefix;
+    }
 
-	public String getLogCleanTime() {
-		return logCleanTime;
-	}
+    public void setTablePrefix(String tablePrefix) {
+        this.tablePrefix = tablePrefix;
+    }
 
-	public void setLogCleanTime(String logCleanTime) {
-		this.logCleanTime = logCleanTime;
-	}
+    public Map<String, String> getDruid() {
+        return druid;
+    }
 
-	public boolean isLogCleanEnabled() {
-		return logCleanEnabled;
-	}
+    public void setDruid(Map<String, String> druid) {
+        this.druid = druid;
+    }
 
-	public void setLogCleanEnabled(boolean logCleanEnabled) {
-		this.logCleanEnabled = logCleanEnabled;
-	}
+    public Boolean getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public int getLogReservedDays() {
+        return logReservedDays;
+    }
+
+    public void setLogReservedDays(int logReservedDays) {
+        this.logReservedDays = logReservedDays;
+    }
+
+    public String getLogCleanTime() {
+        return logCleanTime;
+    }
+
+    public void setLogCleanTime(String logCleanTime) {
+        this.logCleanTime = logCleanTime;
+    }
+
+    public boolean isLogCleanEnabled() {
+        return logCleanEnabled;
+    }
+
+    public void setLogCleanEnabled(boolean logCleanEnabled) {
+        this.logCleanEnabled = logCleanEnabled;
+    }
 
 }

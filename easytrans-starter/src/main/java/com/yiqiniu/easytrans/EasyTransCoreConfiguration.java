@@ -1,26 +1,5 @@
 package com.yiqiniu.easytrans;
 
-import java.io.Serializable;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-
-import javax.sql.DataSource;
-
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
-import org.springframework.context.annotation.Lazy;
-import org.springframework.transaction.PlatformTransactionManager;
-
 import com.yiqiniu.easytrans.core.ConsistentGuardian;
 import com.yiqiniu.easytrans.core.EasyTransFacade;
 import com.yiqiniu.easytrans.core.EasyTransFacadeImpl;
@@ -80,6 +59,25 @@ import com.yiqiniu.easytrans.stringcodec.impl.EnableStringCodecZookeeperImpl;
 import com.yiqiniu.easytrans.util.ByteFormIdCodec;
 import com.yiqiniu.easytrans.util.CallWrapUtil;
 import com.yiqiniu.easytrans.util.DeafultByteFormIdCodec;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.transaction.PlatformTransactionManager;
+
+import javax.sql.DataSource;
+import java.io.Serializable;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 /**
  * @author xudeyou
@@ -88,279 +86,279 @@ import com.yiqiniu.easytrans.util.DeafultByteFormIdCodec;
 @ConditionalOnBean(EasyTransactionTrrigerConfiguration.class)
 public class EasyTransCoreConfiguration {
 
-	@Value("${spring.application.name}")
-	private String applicationName;
+    @Value("${spring.application.name}")
+    private String applicationName;
 
-	@Value("${easytrans.common.leastLogModel:true}")
-	private boolean leastLogModel;
-	
-	@Value("${easytrans.common.tablePrefix:}")
-	private String tablePrefix;
-	
-	@Value("${easytrans.idgen.trxId.zkSnow.zooKeeperUrl:}")
-	private String zkBasedIdGenUrl;
-	
-	@Bean
-	public ConsistentGuardian consistentGuardian(TransStatusLogger transChecker, List<LogProcessor> logProcessors,
-			TransactionLogWritter writer) {
+    @Value("${easytrans.common.leastLogModel:true}")
+    private boolean leastLogModel;
 
-		Map<Class<?>, LogProcessor> map = new HashMap<>(logProcessors.size());
-		for (LogProcessor p : logProcessors) {
-			map.put(p.getClass(), p);
-		}
+    @Value("${easytrans.common.tablePrefix:}")
+    private String tablePrefix;
 
-		return new ConsistentGuardian(transChecker, map, writer, leastLogModel);
-	}
+    @Value("${easytrans.idgen.trxId.zkSnow.zooKeeperUrl:}")
+    private String zkBasedIdGenUrl;
 
-	@Bean
-	@ConditionalOnMissingBean(EasyTransFacade.class)
-	public EasyTransFacadeImpl easyTransFacadeImpl(ApplicationContext ctx, EasyTransSynchronizer synchronizer, BusinessCodeGenerator busCodeGen, TrxIdGenerator idGen) {
-		return new EasyTransFacadeImpl(ctx, synchronizer, busCodeGen, idGen);
-	}
-	
-	@Bean
-	@ConditionalOnMissingBean(BusinessCodeGenerator.class)
-	public BusinessCodeGenerator businessCodeGenerator() {
-		return new ConstantBusinessCodeGenerator();
-	}
-	
-	@Bean
-	@ConditionalOnMissingBean(TrxIdGenerator.class)
-	public TrxIdGenerator trxIdGenerator() {
-		return new ZkBasedSnowFlakeIdGenerator(zkBasedIdGenUrl,applicationName);
-	}
+    @Bean
+    public ConsistentGuardian consistentGuardian(TransStatusLogger transChecker, List<LogProcessor> logProcessors,
+                                                 TransactionLogWritter writer) {
 
-	@Bean
-	public EasyTransSynchronizer easyTransSynchronizer(TransactionLogWritter writer,
-			ConsistentGuardian consistentGuardian, TransStatusLogger transStatusLogger) {
-		return new EasyTransSynchronizer(writer, consistentGuardian, transStatusLogger, applicationName);
-	}
+        Map<Class<?>, LogProcessor> map = new HashMap<>(logProcessors.size());
+        for (LogProcessor p : logProcessors) {
+            map.put(p.getClass(), p);
+        }
 
-	/**
-	 * 不知道为何，不在两个入参上加上lazy就无法成功启动spring,会报找不到对应的bean。于是加上了lazy标签
-	 * 
-	 * @param optionalConsumer
-	 * @param optionalPublisher
-	 * @param serializer
-	 * @return
-	 */
-	@Bean
-	public RemoteServiceCaller remoteServiceCaller(Optional<EasyTransRpcConsumer> optionalConsumer,
-			@Lazy Optional<EasyTransMsgPublisher> optionalPublisher, ObjectSerializer serializer,
-			QueueTopicMapper queueTopicMapper) {
+        return new ConsistentGuardian(transChecker, map, writer, leastLogModel);
+    }
 
-		EasyTransRpcConsumer consumer = optionalConsumer.orElseGet(() -> new EasyTransRpcConsumer() {
+    @Bean
+    @ConditionalOnMissingBean(EasyTransFacade.class)
+    public EasyTransFacadeImpl easyTransFacadeImpl(ApplicationContext ctx, EasyTransSynchronizer synchronizer, BusinessCodeGenerator busCodeGen, TrxIdGenerator idGen) {
+        return new EasyTransFacadeImpl(ctx, synchronizer, busCodeGen, idGen);
+    }
 
-			@Override
-			public <P extends EasyTransRequest<R, ?>, R extends Serializable> R call(String appId, String busCode,
-					String innerMethod, Map<String, Object> header, P params) {
-				throw new RuntimeException("can not find EasyTransRpcConsumer implement but try handle rpc request");
-			}
+    @Bean
+    @ConditionalOnMissingBean(BusinessCodeGenerator.class)
+    public BusinessCodeGenerator businessCodeGenerator() {
+        return new ConstantBusinessCodeGenerator();
+    }
 
-			@Override
-			public <P extends EasyTransRequest<R, ?>, R extends Serializable> void callWithNoReturn(String appId,
-					String busCode, String innerMethod, Map<String, Object> header, P params) {
-				throw new RuntimeException("can not find EasyTransRpcConsumer implement but try handle rpc request");
-			}
-		});
+    @Bean
+    @ConditionalOnMissingBean(TrxIdGenerator.class)
+    public TrxIdGenerator trxIdGenerator() {
+        return new ZkBasedSnowFlakeIdGenerator(zkBasedIdGenUrl, applicationName);
+    }
 
-		EasyTransMsgPublisher publisher = optionalPublisher.orElseGet(() -> new EasyTransMsgPublisher() {
+    @Bean
+    public EasyTransSynchronizer easyTransSynchronizer(TransactionLogWritter writer,
+                                                       ConsistentGuardian consistentGuardian, TransStatusLogger transStatusLogger) {
+        return new EasyTransSynchronizer(writer, consistentGuardian, transStatusLogger, applicationName);
+    }
 
-			@Override
-			public EasyTransMsgPublishResult publish(String topic, String tag, String key, Map<String, Object> header,
-					byte[] msgByte) {
-				throw new RuntimeException("can not find EasyTransMsgPublisher implement but try to publish a message");
-			}
-		});
+    /**
+     * 不知道为何，不在两个入参上加上lazy就无法成功启动spring,会报找不到对应的bean。于是加上了lazy标签
+     *
+     * @param optionalConsumer
+     * @param optionalPublisher
+     * @param serializer
+     * @return
+     */
+    @Bean
+    public RemoteServiceCaller remoteServiceCaller(Optional<EasyTransRpcConsumer> optionalConsumer,
+                                                   @Lazy Optional<EasyTransMsgPublisher> optionalPublisher, ObjectSerializer serializer,
+                                                   QueueTopicMapper queueTopicMapper) {
 
-		return new RemoteServiceCaller(consumer, publisher, serializer, queueTopicMapper);
-	}
+        EasyTransRpcConsumer consumer = optionalConsumer.orElseGet(() -> new EasyTransRpcConsumer() {
 
-	@Bean
-	public AfterTransMethodExecutor afterTransMethodExecutor(@Lazy EasyTransSynchronizer transSynchronizer,
-			RemoteServiceCaller rpcClient) {
-		return new AfterTransMethodExecutor(transSynchronizer, rpcClient);
-	}
+            @Override
+            public <P extends EasyTransRequest<R, ?>, R extends Serializable> R call(String appId, String busCode,
+                                                                                     String innerMethod, Map<String, Object> header, P params) {
+                throw new RuntimeException("can not find EasyTransRpcConsumer implement but try handle rpc request");
+            }
 
-	@Bean
-	public BestEffortMessageMethodExecutor BestEffortMessageMethodExecutor(
-			@Lazy EasyTransSynchronizer transSynchronizer, RemoteServiceCaller rpcClient) {
-		return new BestEffortMessageMethodExecutor(transSynchronizer, rpcClient);
-	}
+            @Override
+            public <P extends EasyTransRequest<R, ?>, R extends Serializable> void callWithNoReturn(String appId,
+                                                                                                    String busCode, String innerMethod, Map<String, Object> header, P params) {
+                throw new RuntimeException("can not find EasyTransRpcConsumer implement but try handle rpc request");
+            }
+        });
 
-	@Bean
-	public CompensableMethodExecutor compensableMethodExecutor(@Lazy EasyTransSynchronizer transSynchronizer,
-			RemoteServiceCaller rpcClient) {
-		return new CompensableMethodExecutor(transSynchronizer, rpcClient);
-	}
+        EasyTransMsgPublisher publisher = optionalPublisher.orElseGet(() -> new EasyTransMsgPublisher() {
 
-	@Bean
-	public ReliableMessageMethodExecutor reliableMessageMethodExecutor(@Lazy EasyTransSynchronizer transSynchronizer,
-			RemoteServiceCaller rpcClient) {
-		return new ReliableMessageMethodExecutor(transSynchronizer, rpcClient);
-	}
+            @Override
+            public EasyTransMsgPublishResult publish(String topic, String tag, String key, Map<String, Object> header,
+                                                     byte[] msgByte) {
+                throw new RuntimeException("can not find EasyTransMsgPublisher implement but try to publish a message");
+            }
+        });
 
-	@Bean
-	public TccMethodExecutor tccMethodExecutor(@Lazy EasyTransSynchronizer transSynchronizer,
-			RemoteServiceCaller rpcClient) {
-		return new TccMethodExecutor(transSynchronizer, rpcClient);
-	}
-	
-	@Bean
-	public SagaTccMethodExecutor sagaTccMethodExecutor(@Lazy EasyTransSynchronizer transSynchronizer,
-			RemoteServiceCaller rpcClient) {
-		return new SagaTccMethodExecutor(transSynchronizer, rpcClient);
-	}
+        return new RemoteServiceCaller(consumer, publisher, serializer, queueTopicMapper);
+    }
 
-	@Bean
-	@ConditionalOnMissingBean(EasyTransMsgListener.class)
-	public EasyTransMsgInitializer easyTransMsgInitializer(ListableProviderFactory serviceWareHouse,
-			Optional<EasyTransMsgConsumer> optionalConsumer, EasyTransFilterChainFactory filterChainFactory,
-			QueueTopicMapper queueTopicMapper) {
+    @Bean
+    public AfterTransMethodExecutor afterTransMethodExecutor(@Lazy EasyTransSynchronizer transSynchronizer,
+                                                             RemoteServiceCaller rpcClient) {
+        return new AfterTransMethodExecutor(transSynchronizer, rpcClient);
+    }
 
-		EasyTransMsgConsumer consumer = optionalConsumer.orElseGet(() -> {
-			return new EasyTransMsgConsumer() {
+    @Bean
+    public BestEffortMessageMethodExecutor BestEffortMessageMethodExecutor(
+            @Lazy EasyTransSynchronizer transSynchronizer, RemoteServiceCaller rpcClient) {
+        return new BestEffortMessageMethodExecutor(transSynchronizer, rpcClient);
+    }
 
-				@Override
-				public void subscribe(String topic, Collection<String> tag, EasyTransMsgListener listener) {
-					throw new RuntimeException("can not find EasyTransMsgConsumer implement but try handle msg");
-				}
+    @Bean
+    public CompensableMethodExecutor compensableMethodExecutor(@Lazy EasyTransSynchronizer transSynchronizer,
+                                                               RemoteServiceCaller rpcClient) {
+        return new CompensableMethodExecutor(transSynchronizer, rpcClient);
+    }
 
-				@Override
-				public void start() {
-					//do nothing
-				}
+    @Bean
+    public ReliableMessageMethodExecutor reliableMessageMethodExecutor(@Lazy EasyTransSynchronizer transSynchronizer,
+                                                                       RemoteServiceCaller rpcClient) {
+        return new ReliableMessageMethodExecutor(transSynchronizer, rpcClient);
+    }
 
-				@Override
-				public String getConsumerId() {
-					throw new RuntimeException("can not find EasyTransMsgConsumer implement but try to get consumerId");
-				}
+    @Bean
+    public TccMethodExecutor tccMethodExecutor(@Lazy EasyTransSynchronizer transSynchronizer,
+                                               RemoteServiceCaller rpcClient) {
+        return new TccMethodExecutor(transSynchronizer, rpcClient);
+    }
 
-			};
-		});
+    @Bean
+    public SagaTccMethodExecutor sagaTccMethodExecutor(@Lazy EasyTransSynchronizer transSynchronizer,
+                                                       RemoteServiceCaller rpcClient) {
+        return new SagaTccMethodExecutor(transSynchronizer, rpcClient);
+    }
 
-		return new EasyTransMsgInitializer(serviceWareHouse, consumer, filterChainFactory, queueTopicMapper);
-	}
+    @Bean
+    @ConditionalOnMissingBean(EasyTransMsgListener.class)
+    public EasyTransMsgInitializer easyTransMsgInitializer(ListableProviderFactory serviceWareHouse,
+                                                           Optional<EasyTransMsgConsumer> optionalConsumer, EasyTransFilterChainFactory filterChainFactory,
+                                                           QueueTopicMapper queueTopicMapper) {
 
-	@Bean
-	public EasyTransRpcProviderInitializer easyTransRpcProviderInitializer(EasyTransFilterChainFactory filterFactory,
-			EasyTransRpcProvider rpcProvider, ListableProviderFactory wareHouse) {
-		return new EasyTransRpcProviderInitializer(filterFactory, rpcProvider, wareHouse);
-	}
+        EasyTransMsgConsumer consumer = optionalConsumer.orElseGet(() -> {
+            return new EasyTransMsgConsumer() {
 
-	@Bean
-	@ConditionalOnMissingBean(DataSourceSelector.class)
-	public SingleDataSourceSelector singleDataSourceSelector(DataSource dataSource,
-			PlatformTransactionManager transactionManager) {
-		return new SingleDataSourceSelector(dataSource, transactionManager);
-	}
+                @Override
+                public void subscribe(String topic, Collection<String> tag, EasyTransMsgListener listener) {
+                    throw new RuntimeException("can not find EasyTransMsgConsumer implement but try handle msg");
+                }
 
-	@Bean
-	public DefaultEasyTransFilterFactory defaultEasyTransFilterFactory(List<EasyTransFilter> defaultFilters) {
-		return new DefaultEasyTransFilterFactory(defaultFilters);
-	}
+                @Override
+                public void start() {
+                    //do nothing
+                }
 
-	@Bean
-	@ConditionalOnMissingBean(IdempotentTransactionDefinition.class)
-	public IdempotentTransactionDefinition idempotentTransactionDefinition() {
-		return new DefaultIdempotentTransactionDefinition();
-	}
+                @Override
+                public String getConsumerId() {
+                    throw new RuntimeException("can not find EasyTransMsgConsumer implement but try to get consumerId");
+                }
 
-	@Bean
-	@ConditionalOnMissingBean(IdempotentHandlerFilter.class)
-	public DefaultIdempotentHandlerFilter idempotentHandlerFilter(IdempotentHelper helper, ObjectSerializer serializer,
-			IdempotentTransactionDefinition idempotentTransactionDefinition) {
-		return new DefaultIdempotentHandlerFilter(applicationName, helper, serializer, idempotentTransactionDefinition);
-	}
+            };
+        });
 
-	@Bean
-	public MetaDataFilter metaDataFilter(ListableProviderFactory providerFactory) {
-		return new MetaDataFilter(providerFactory);
-	}
+        return new EasyTransMsgInitializer(serviceWareHouse, consumer, filterChainFactory, queueTopicMapper);
+    }
 
-	@Bean
-	public ParentTrxStatusUpdateFilter parentTrxStatusUpdateFilter(DataSourceSelector selector,
-			TransStatusLogger transStatusLogger, EasyTransSynchronizer easyTransSynchronizer) {
-		return new ParentTrxStatusUpdateFilter(selector, transStatusLogger, easyTransSynchronizer);
-	}
+    @Bean
+    public EasyTransRpcProviderInitializer easyTransRpcProviderInitializer(EasyTransFilterChainFactory filterFactory,
+                                                                           EasyTransRpcProvider rpcProvider, ListableProviderFactory wareHouse) {
+        return new EasyTransRpcProviderInitializer(filterFactory, rpcProvider, wareHouse);
+    }
 
-	@Bean
-	public IdempotentHelper idempotentHelper(DataSourceSelector selector, ListableProviderFactory providerFactory, StringCodec stringCodecer) {
-		return new IdempotentHelper(applicationName, selector, providerFactory, stringCodecer, tablePrefix);
-	}
+    @Bean
+    @ConditionalOnMissingBean(DataSourceSelector.class)
+    public SingleDataSourceSelector singleDataSourceSelector(DataSource dataSource,
+                                                             PlatformTransactionManager transactionManager) {
+        return new SingleDataSourceSelector(dataSource, transactionManager);
+    }
 
-	@Bean
-	@ConditionalOnMissingBean(ListableProviderFactory.class)
-	public DefaultListableProviderFactory defaultListableProviderFactory(
-			Optional<List<RpcBusinessProvider<?>>> rpcBusinessProviderList,
-			Optional<List<MessageBusinessProvider<?>>> messageBusinessProviderList) {
-		HashMap<Class<?>, List<? extends BusinessProvider<?>>> mapProviderTypeBeans = new HashMap<Class<?>, List<? extends BusinessProvider<?>>>(
-				2);
+    @Bean
+    public DefaultEasyTransFilterFactory defaultEasyTransFilterFactory(List<EasyTransFilter> defaultFilters) {
+        return new DefaultEasyTransFilterFactory(defaultFilters);
+    }
 
-		List<RpcBusinessProvider<?>> rpcList = rpcBusinessProviderList.orElse(Collections.emptyList());
-		List<MessageBusinessProvider<?>> msgList = messageBusinessProviderList.orElse(Collections.emptyList());
+    @Bean
+    @ConditionalOnMissingBean(IdempotentTransactionDefinition.class)
+    public IdempotentTransactionDefinition idempotentTransactionDefinition() {
+        return new DefaultIdempotentTransactionDefinition();
+    }
 
-		mapProviderTypeBeans.put(RpcBusinessProvider.class, rpcList);
-		mapProviderTypeBeans.put(MessageBusinessProvider.class, msgList);
-		return new DefaultListableProviderFactory(mapProviderTypeBeans);
-	}
+    @Bean
+    @ConditionalOnMissingBean(IdempotentHandlerFilter.class)
+    public DefaultIdempotentHandlerFilter idempotentHandlerFilter(IdempotentHelper helper, ObjectSerializer serializer,
+                                                                  IdempotentTransactionDefinition idempotentTransactionDefinition) {
+        return new DefaultIdempotentHandlerFilter(applicationName, helper, serializer, idempotentTransactionDefinition);
+    }
 
-	@ConditionalOnClass(EnableStringCodecZookeeperImpl.class)
-	@EnableStringCodecZookeeperImpl
-	public static class EnableDefaultStringCodecImpl {
-	}
-	
-	@ConditionalOnClass(EnableLogDatabaseImpl.class)
-	@EnableLogDatabaseImpl
-	public static class EnableDefaultLogImpl {
-	}
+    @Bean
+    public MetaDataFilter metaDataFilter(ListableProviderFactory providerFactory) {
+        return new MetaDataFilter(providerFactory);
+    }
 
-	@ConditionalOnClass(EnableQueueKafkaImpl.class)
-	@EnableQueueKafkaImpl
-	public static class EnableDefaultQueueImpl {
-	}
+    @Bean
+    public ParentTrxStatusUpdateFilter parentTrxStatusUpdateFilter(DataSourceSelector selector,
+                                                                   TransStatusLogger transStatusLogger, EasyTransSynchronizer easyTransSynchronizer) {
+        return new ParentTrxStatusUpdateFilter(selector, transStatusLogger, easyTransSynchronizer);
+    }
 
-	@ConditionalOnClass(EnableRpcRestRibbonImpl.class)
-	@EnableRpcRestRibbonImpl
-	public static class EnableDefaultRpcImpl {
-	}
+    @Bean
+    public IdempotentHelper idempotentHelper(DataSourceSelector selector, ListableProviderFactory providerFactory, StringCodec stringCodecer) {
+        return new IdempotentHelper(applicationName, selector, providerFactory, stringCodecer, tablePrefix);
+    }
 
-	@ConditionalOnClass(EnableMasterZookeeperImpl.class)
-	@EnableMasterZookeeperImpl
-	public static class EnableDefaultMasterImpl {
-	}
+    @Bean
+    @ConditionalOnMissingBean(ListableProviderFactory.class)
+    public DefaultListableProviderFactory defaultListableProviderFactory(
+            Optional<List<RpcBusinessProvider<?>>> rpcBusinessProviderList,
+            Optional<List<MessageBusinessProvider<?>>> messageBusinessProviderList) {
+        HashMap<Class<?>, List<? extends BusinessProvider<?>>> mapProviderTypeBeans = new HashMap<Class<?>, List<? extends BusinessProvider<?>>>(
+                2);
 
-	@Import(ConsistentGuardianDaemonConfiguration.class)
-	public static class EnableConsistentGuardianDaemon {
-	}
+        List<RpcBusinessProvider<?>> rpcList = rpcBusinessProviderList.orElse(Collections.emptyList());
+        List<MessageBusinessProvider<?>> msgList = messageBusinessProviderList.orElse(Collections.emptyList());
 
-	@Bean
-	@ConditionalOnMissingBean(ObjectSerializer.class)
-	public SpringObjectSerialization SpringObjectSerialization() {
-		return new SpringObjectSerialization();
-	}
+        mapProviderTypeBeans.put(RpcBusinessProvider.class, rpcList);
+        mapProviderTypeBeans.put(MessageBusinessProvider.class, msgList);
+        return new DefaultListableProviderFactory(mapProviderTypeBeans);
+    }
 
-	@Bean
-	@ConditionalOnMissingBean(TransStatusLogger.class)
-	public DefaultTransStatusLoggerImpl DefaultTransStatusLoggerImpl(DataSourceSelector selctor, StringCodec codec) {
-		return new DefaultTransStatusLoggerImpl(selctor, codec, tablePrefix);
-	}
+    @Bean
+    @ConditionalOnMissingBean(ObjectSerializer.class)
+    public SpringObjectSerialization SpringObjectSerialization() {
+        return new SpringObjectSerialization();
+    }
 
-	@Bean
-	@ConditionalOnMissingBean(QueueTopicMapper.class)
-	public QueueTopicMapper queueTopicMapper() {
-		return new IdenticalQueueTopicMapper();
-	}
+    @Bean
+    @ConditionalOnMissingBean(TransStatusLogger.class)
+    public DefaultTransStatusLoggerImpl DefaultTransStatusLoggerImpl(DataSourceSelector selctor, StringCodec codec) {
+        return new DefaultTransStatusLoggerImpl(selctor, codec, tablePrefix);
+    }
 
-	@Bean
-	@ConditionalOnMissingBean(ByteFormIdCodec.class)
-	public ByteFormIdCodec byteFormIdCodec(StringCodec codecer) {
-		return new DeafultByteFormIdCodec(codecer);
-	}
-	
-	@Bean
-	public CallWrapUtil callWrappUtil(EasyTransFacade facade) {
-		return new CallWrapUtil(facade);
-	}
-	
+    @Bean
+    @ConditionalOnMissingBean(QueueTopicMapper.class)
+    public QueueTopicMapper queueTopicMapper() {
+        return new IdenticalQueueTopicMapper();
+    }
+
+    @Bean
+    @ConditionalOnMissingBean(ByteFormIdCodec.class)
+    public ByteFormIdCodec byteFormIdCodec(StringCodec codecer) {
+        return new DeafultByteFormIdCodec(codecer);
+    }
+
+    @Bean
+    public CallWrapUtil callWrappUtil(EasyTransFacade facade) {
+        return new CallWrapUtil(facade);
+    }
+
+    @ConditionalOnClass(EnableStringCodecZookeeperImpl.class)
+    @EnableStringCodecZookeeperImpl
+    public static class EnableDefaultStringCodecImpl {
+    }
+
+    @ConditionalOnClass(EnableLogDatabaseImpl.class)
+    @EnableLogDatabaseImpl
+    public static class EnableDefaultLogImpl {
+    }
+
+    @ConditionalOnClass(EnableQueueKafkaImpl.class)
+    @EnableQueueKafkaImpl
+    public static class EnableDefaultQueueImpl {
+    }
+
+    @ConditionalOnClass(EnableRpcRestRibbonImpl.class)
+    @EnableRpcRestRibbonImpl
+    public static class EnableDefaultRpcImpl {
+    }
+
+    @ConditionalOnClass(EnableMasterZookeeperImpl.class)
+    @EnableMasterZookeeperImpl
+    public static class EnableDefaultMasterImpl {
+    }
+
+    @Import(ConsistentGuardianDaemonConfiguration.class)
+    public static class EnableConsistentGuardianDaemon {
+    }
+
 }

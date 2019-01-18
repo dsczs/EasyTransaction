@@ -5,8 +5,8 @@ import com.yiqiniu.easytrans.protocol.EasyTransRequest;
 import com.yiqiniu.easytrans.protocol.SerializableVoid;
 
 /**
- *	Best effort message
+ * Best effort message
  */
-public interface BestEffortMessagePublishRequest extends EasyTransRequest<SerializableVoid,BestEffortMessageMethodExecutor>{
-	
+public interface BestEffortMessagePublishRequest extends EasyTransRequest<SerializableVoid, BestEffortMessageMethodExecutor> {
+
 }

@@ -1,32 +1,33 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <name>EasyTransaction queue alibaba ONS implement</name>
-  
-  <artifactId>easytrans-queue-ons-starter</artifactId>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <name>EasyTransaction queue alibaba ONS implement</name>
 
-  	<parent>
-		  <groupId>com.yiqiniu.easytrans</groupId>
-		  <artifactId>easytrans</artifactId>
-		  <version>${revision}</version>
-		  <relativePath>../pom.xml</relativePath>
-	</parent>
-  
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-	</properties>
+    <artifactId>easytrans-queue-ons-starter</artifactId>
 
-<dependencies>
-	<dependency>
-		<groupId>com.yiqiniu.easytrans</groupId>
-		<artifactId>easytrans-core</artifactId>
-	</dependency>
+    <parent>
+        <groupId>com.yiqiniu.easytrans</groupId>
+        <artifactId>easytrans</artifactId>
+        <version>${revision}</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
 
-	<dependency>
-		<groupId>com.aliyun.openservices</groupId>
-		<artifactId>ons-client</artifactId>
-		<!-- <version>1.2.5</version> -->
-		<version>1.7.0.Final</version>
-	</dependency>
-</dependencies>
-  
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.yiqiniu.easytrans</groupId>
+            <artifactId>easytrans-core</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.aliyun.openservices</groupId>
+            <artifactId>ons-client</artifactId>
+            <!-- <version>1.2.5</version> -->
+            <version>1.7.0.Final</version>
+        </dependency>
+    </dependencies>
+
 </project>

@@ -1,69 +1,68 @@
 package com.yiqiniu.easytrans.rpc.impl.rest;
 
+import org.springframework.boot.context.properties.ConfigurationProperties;
+
 import java.util.HashMap;
 import java.util.Map;
 
-import org.springframework.boot.context.properties.ConfigurationProperties;
+/**
+ * @author xudeyou
+ */
 
-/** 
-* @author xudeyou 
-*/
-
-@ConfigurationProperties(prefix="easytrans.rpc.rest-ribbon")
+@ConfigurationProperties(prefix = "easytrans.rpc.rest-ribbon")
 public class RestRibbonEasyTransRpcProperties {
-	private Boolean enabled;
-	private RestProviderProperties provider = new RestProviderProperties();
-	private Map<String,RestConsumerProperties> consumer = new HashMap<>();
-	
-	public RestProviderProperties getProvider() {
-		return provider;
-	}
+    private Boolean enabled;
+    private RestProviderProperties provider = new RestProviderProperties();
+    private Map<String, RestConsumerProperties> consumer = new HashMap<>();
 
-	public void setProvider(RestProviderProperties provider) {
-		this.provider = provider;
-	}
+    public RestProviderProperties getProvider() {
+        return provider;
+    }
 
-	public Map<String, RestConsumerProperties> getConsumer() {
-		return consumer;
-	}
+    public void setProvider(RestProviderProperties provider) {
+        this.provider = provider;
+    }
 
-	public void setConsumer(Map<String, RestConsumerProperties> consumer) {
-		this.consumer = consumer;
-	}
+    public Map<String, RestConsumerProperties> getConsumer() {
+        return consumer;
+    }
 
-	public static class RestProviderProperties{
-		private String context = RestRibbonEasyTransConstants.DEFAULT_URL_CONTEXT;
+    public void setConsumer(Map<String, RestConsumerProperties> consumer) {
+        this.consumer = consumer;
+    }
 
-		public String getContext() {
-			return context;
-		}
+    public Boolean getEnabled() {
+        return enabled;
+    }
 
-		public void setContext(String context) {
-			this.context = context;
-		}
-	}
-	
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
+    }
 
-	public static class RestConsumerProperties {
+    public static class RestProviderProperties {
+        private String context = RestRibbonEasyTransConstants.DEFAULT_URL_CONTEXT;
 
-		private String context= "/easytrans";
+        public String getContext() {
+            return context;
+        }
 
-		public String getContext() {
-			return context;
-		}
+        public void setContext(String context) {
+            this.context = context;
+        }
+    }
 
-		public void setContext(String context) {
-			this.context = context;
-		}
-	
-	}
-	
-	public Boolean getEnabled() {
-		return enabled;
-	}
+    public static class RestConsumerProperties {
 
-	public void setEnabled(Boolean enabled) {
-		this.enabled = enabled;
-	}
-	
+        private String context = "/easytrans";
+
+        public String getContext() {
+            return context;
+        }
+
+        public void setContext(String context) {
+            this.context = context;
+        }
+
+    }
+
 }

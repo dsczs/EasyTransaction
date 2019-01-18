@@ -6,20 +6,20 @@ import com.yiqiniu.easytrans.protocol.EasyTransRequest;
 
 public class PreCompensableCallContent extends DemiLeftContent {
 
-	private static final long serialVersionUID = 1L;
-	
-	private EasyTransRequest<?,?> params;
+    private static final long serialVersionUID = 1L;
 
-	@Override
-	public int getLogType() {
-		return ContentType.PreCompensableCall.getContentTypeId();
-	}
+    private EasyTransRequest<?, ?> params;
 
-	public EasyTransRequest<?,?> getParams() {
-		return params;
-	}
+    @Override
+    public int getLogType() {
+        return ContentType.PreCompensableCall.getContentTypeId();
+    }
 
-	public void setParams(EasyTransRequest<?,?> params) {
-		this.params = params;
-	}
+    public EasyTransRequest<?, ?> getParams() {
+        return params;
+    }
+
+    public void setParams(EasyTransRequest<?, ?> params) {
+        this.params = params;
+    }
 }

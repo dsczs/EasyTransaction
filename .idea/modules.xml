@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/EasyTransaction.iml" filepath="$PROJECT_DIR$/.idea/EasyTransaction.iml" />
+      <module fileurl="file://$PROJECT_DIR$/easytrans.iml" filepath="$PROJECT_DIR$/easytrans.iml" />
+      <module fileurl="file://$PROJECT_DIR$/easytrans-core/easytrans-core.iml" filepath="$PROJECT_DIR$/easytrans-core/easytrans-core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/easytrans-log-database-starter/easytrans-log-database-starter.iml" filepath="$PROJECT_DIR$/easytrans-log-database-starter/easytrans-log-database-starter.iml" />
+      <module fileurl="file://$PROJECT_DIR$/easytrans-log-redis-starter/easytrans-log-redis-starter.iml" filepath="$PROJECT_DIR$/easytrans-log-redis-starter/easytrans-log-redis-starter.iml" />
+      <module fileurl="file://$PROJECT_DIR$/easytrans-queue-kafka-starter/easytrans-queue-kafka-starter.iml" filepath="$PROJECT_DIR$/easytrans-queue-kafka-starter/easytrans-queue-kafka-starter.iml" />
+      <module fileurl="file://$PROJECT_DIR$/easytrans-queue-ons-starter/easytrans-queue-ons-starter.iml" filepath="$PROJECT_DIR$/easytrans-queue-ons-starter/easytrans-queue-ons-starter.iml" />
+      <module fileurl="file://$PROJECT_DIR$/easytrans-rpc-dubbo-starter/easytrans-rpc-dubbo-starter.iml" filepath="$PROJECT_DIR$/easytrans-rpc-dubbo-starter/easytrans-rpc-dubbo-starter.iml" />
+      <module fileurl="file://$PROJECT_DIR$/easytrans-rpc-rest-ribbon-starter/easytrans-rpc-rest-ribbon-starter.iml" filepath="$PROJECT_DIR$/easytrans-rpc-rest-ribbon-starter/easytrans-rpc-rest-ribbon-starter.iml" />
+      <module fileurl="file://$PROJECT_DIR$/easytrans-starter/easytrans-starter.iml" filepath="$PROJECT_DIR$/easytrans-starter/easytrans-starter.iml" />
+    </modules>
+  </component>
+</project>

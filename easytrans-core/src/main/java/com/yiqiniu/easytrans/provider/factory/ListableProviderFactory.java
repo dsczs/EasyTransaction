@@ -5,14 +5,14 @@ import java.util.Set;
 
 public interface ListableProviderFactory {
 
-	Set<Class<?>> getServiceRootKey();
+    Set<Class<?>> getServiceRootKey();
 
-	Set<Class<?>> getServiceTransactionTypeSet(Class<?> rootType);
+    Set<Class<?>> getServiceTransactionTypeSet(Class<?> rootType);
 
-	List<Object> getServices(Class<?> root, Class<?> transactionType);
-	
-	Object getService(String appId,String busCode);
-	
-	Class<?> getServiceInterface(String appId,String busCode);
+    List<Object> getServices(Class<?> root, Class<?> transactionType);
+
+    Object getService(String appId, String busCode);
+
+    Class<?> getServiceInterface(String appId, String busCode);
 
 }

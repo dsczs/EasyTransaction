@@ -1,9 +1,5 @@
 package com.yiqiniu.easytrans.test.mockservice.express.easytrans;
 
-import javax.annotation.Resource;
-
-import org.springframework.stereotype.Component;
-
 import com.yiqiniu.easytrans.filter.EasyTransResult;
 import com.yiqiniu.easytrans.protocol.BusinessIdentifer;
 import com.yiqiniu.easytrans.protocol.aft.AfterMasterTransMethod;
@@ -12,62 +8,65 @@ import com.yiqiniu.easytrans.test.Constant;
 import com.yiqiniu.easytrans.test.mockservice.express.ExpressService;
 import com.yiqiniu.easytrans.test.mockservice.express.easytrans.ExpressDeliverAfterTransMethod.AfterMasterTransMethodResult;
 import com.yiqiniu.easytrans.test.mockservice.express.easytrans.ExpressDeliverAfterTransMethod.ExpressDeliverAfterTransMethodRequest;
+import org.springframework.stereotype.Component;
+
+import javax.annotation.Resource;
 
 @Component
-public class ExpressDeliverAfterTransMethod implements AfterMasterTransMethod<ExpressDeliverAfterTransMethodRequest, AfterMasterTransMethodResult>{
-	
-	public static final String BUSINESS_CODE = "noticeExpress";
+public class ExpressDeliverAfterTransMethod implements AfterMasterTransMethod<ExpressDeliverAfterTransMethodRequest, AfterMasterTransMethodResult> {
 
-	@Resource
-	private ExpressService service;
-	
-	@Override
-	public AfterMasterTransMethodResult afterTransaction(ExpressDeliverAfterTransMethodRequest param) {
-		return service.afterTransaction(param);
-	}
-	
-	@BusinessIdentifer(appId=Constant.APPID,busCode=BUSINESS_CODE)
-	public static class ExpressDeliverAfterTransMethodRequest implements AfterMasterTransRequest<AfterMasterTransMethodResult>{
+    public static final String BUSINESS_CODE = "noticeExpress";
 
-		private static final long serialVersionUID = 1L;
-		
-		private Integer userId;
-		
-		private Long payAmount;
+    @Resource
+    private ExpressService service;
 
-		public Long getPayAmount() {
-			return payAmount;
-		}
+    @Override
+    public AfterMasterTransMethodResult afterTransaction(ExpressDeliverAfterTransMethodRequest param) {
+        return service.afterTransaction(param);
+    }
 
-		public void setPayAmount(Long payAmount) {
-			this.payAmount = payAmount;
-		}
+    @Override
+    public int getIdempotentType() {
+        return IDENPOTENT_TYPE_FRAMEWORK;
+    }
 
-		public Integer getUserId() {
-			return userId;
-		}
+    @BusinessIdentifer(appId = Constant.APPID, busCode = BUSINESS_CODE)
+    public static class ExpressDeliverAfterTransMethodRequest implements AfterMasterTransRequest<AfterMasterTransMethodResult> {
 
-		public void setUserId(Integer userId) {
-			this.userId = userId;
-		}
-	}
-	
-	public static class AfterMasterTransMethodResult extends EasyTransResult{
-		private static final long serialVersionUID = 1L;
-		
-		private String message;
+        private static final long serialVersionUID = 1L;
 
-		public String getMessage() {
-			return message;
-		}
+        private Integer userId;
 
-		public void setMessage(String message) {
-			this.message = message;
-		}
-	}
+        private Long payAmount;
 
-	@Override
-	public int getIdempotentType() {
-		return IDENPOTENT_TYPE_FRAMEWORK;
-	}
+        public Long getPayAmount() {
+            return payAmount;
+        }
+
+        public void setPayAmount(Long payAmount) {
+            this.payAmount = payAmount;
+        }
+
+        public Integer getUserId() {
+            return userId;
+        }
+
+        public void setUserId(Integer userId) {
+            this.userId = userId;
+        }
+    }
+
+    public static class AfterMasterTransMethodResult extends EasyTransResult {
+        private static final long serialVersionUID = 1L;
+
+        private String message;
+
+        public String getMessage() {
+            return message;
+        }
+
+        public void setMessage(String message) {
+            this.message = message;
+        }
+    }
 }

@@ -6,23 +6,23 @@ import com.yiqiniu.easytrans.protocol.EasyTransRequest;
 
 public class PreTccCallContent extends DemiLeftContent {
 
-	private static final long serialVersionUID = 1L;
-	
-	/**
-	 * 调用的参数
-	 */
-	private EasyTransRequest<?,?> params;
+    private static final long serialVersionUID = 1L;
 
-	@Override
-	public int getLogType() {
-		return ContentType.PreTccCall.getContentTypeId();
-	}
+    /**
+     * 调用的参数
+     */
+    private EasyTransRequest<?, ?> params;
 
-	public EasyTransRequest<?,?> getParams() {
-		return params;
-	}
+    @Override
+    public int getLogType() {
+        return ContentType.PreTccCall.getContentTypeId();
+    }
 
-	public void setParams(EasyTransRequest<?,?> params) {
-		this.params = params;
-	}
+    public EasyTransRequest<?, ?> getParams() {
+        return params;
+    }
+
+    public void setParams(EasyTransRequest<?, ?> params) {
+        this.params = params;
+    }
 }

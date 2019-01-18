@@ -6,22 +6,22 @@ import java.io.Serializable;
 public class EasyTransResult implements Serializable {
 
     /**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+     *
+     */
+    private static final long serialVersionUID = 1L;
 
-	private Object result;
+    private Object result;
 
     private Throwable exception;
 
-    public EasyTransResult(){
+    public EasyTransResult() {
     }
 
-    public EasyTransResult(Object result){
+    public EasyTransResult(Object result) {
         this.result = result;
     }
 
-    public EasyTransResult(Throwable exception){
+    public EasyTransResult(Throwable exception) {
         this.exception = exception;
     }
 
@@ -32,7 +32,7 @@ public class EasyTransResult implements Serializable {
         return result;
     }
 
-	public Object getValue() {
+    public Object getValue() {
         return result;
     }
 

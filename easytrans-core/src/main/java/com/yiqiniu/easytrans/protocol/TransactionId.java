@@ -4,75 +4,72 @@ import java.io.Serializable;
 
 public class TransactionId implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	
-	private String appId;
-	private String busCode;
-	private long trxId;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
 
-	public TransactionId(String appId, String busCode, long trxId) {
-		super();
-		this.appId = appId;
-		this.busCode = busCode;
-		this.trxId = trxId;
-	}
-	
-	public TransactionId() {
-		super();
-	}
+    private String appId;
+    private String busCode;
+    private long trxId;
 
+    public TransactionId(String appId, String busCode, long trxId) {
+        super();
+        this.appId = appId;
+        this.busCode = busCode;
+        this.trxId = trxId;
+    }
 
-
-	public String getAppId() {
-		return appId;
-	}
-
-	public String getBusCode() {
-		return busCode;
-	}
-
-	public long getTrxId() {
-		return trxId;
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((appId == null) ? 0 : appId.hashCode());
-		result = prime * result + ((busCode == null) ? 0 : busCode.hashCode());
-		result = prime * result + (int) (trxId ^ (trxId >>> 32));
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		TransactionId other = (TransactionId) obj;
-		if (appId == null) {
-			if (other.appId != null)
-				return false;
-		} else if (!appId.equals(other.appId))
-			return false;
-		if (busCode == null) {
-			if (other.busCode != null)
-				return false;
-		} else if (!busCode.equals(other.busCode))
-			return false;
-		if (trxId != other.trxId)
-			return false;
-		return true;
-	}
+    public TransactionId() {
+        super();
+    }
 
 
+    public String getAppId() {
+        return appId;
+    }
 
-	
+    public String getBusCode() {
+        return busCode;
+    }
+
+    public long getTrxId() {
+        return trxId;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((appId == null) ? 0 : appId.hashCode());
+        result = prime * result + ((busCode == null) ? 0 : busCode.hashCode());
+        result = prime * result + (int) (trxId ^ (trxId >>> 32));
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        TransactionId other = (TransactionId) obj;
+        if (appId == null) {
+            if (other.appId != null)
+                return false;
+        } else if (!appId.equals(other.appId))
+            return false;
+        if (busCode == null) {
+            if (other.busCode != null)
+                return false;
+        } else if (!busCode.equals(other.busCode))
+            return false;
+        if (trxId != other.trxId)
+            return false;
+        return true;
+    }
+
+
 }

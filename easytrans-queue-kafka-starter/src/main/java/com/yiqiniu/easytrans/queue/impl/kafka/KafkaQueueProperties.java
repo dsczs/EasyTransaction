@@ -1,9 +1,9 @@
 package com.yiqiniu.easytrans.queue.impl.kafka;
 
+import org.springframework.boot.context.properties.ConfigurationProperties;
+
 import java.util.List;
 import java.util.Properties;
-
-import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
  * @author xudeyou
@@ -11,76 +11,76 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 
 @ConfigurationProperties(prefix = "easytrans.queue.kafka")
 public class KafkaQueueProperties {
-	private Boolean enabled;
-	private ProducerConfig produerCfg;
-	private ConsumerConfig consumerCfg;
-	
-	public ProducerConfig getProduerCfg() {
-		return produerCfg;
-	}
+    private Boolean enabled;
+    private ProducerConfig produerCfg;
+    private ConsumerConfig consumerCfg;
 
-	public void setProduerCfg(ProducerConfig produerCfg) {
-		this.produerCfg = produerCfg;
-	}
+    public ProducerConfig getProduerCfg() {
+        return produerCfg;
+    }
 
-	public ConsumerConfig getConsumerCfg() {
-		return consumerCfg;
-	}
+    public void setProduerCfg(ProducerConfig produerCfg) {
+        this.produerCfg = produerCfg;
+    }
 
-	public void setConsumerCfg(ConsumerConfig consumerCfg) {
-		this.consumerCfg = consumerCfg;
-	}
+    public ConsumerConfig getConsumerCfg() {
+        return consumerCfg;
+    }
 
-	public Boolean getEnabled() {
-		return enabled;
-	}
+    public void setConsumerCfg(ConsumerConfig consumerCfg) {
+        this.consumerCfg = consumerCfg;
+    }
 
-	public void setEnabled(Boolean enabled) {
-		this.enabled = enabled;
-	}
-	
-	public static class ProducerConfig{
-		private Properties nativeCfg;
+    public Boolean getEnabled() {
+        return enabled;
+    }
 
-		public Properties getNativeCfg() {
-			return nativeCfg;
-		}
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
+    }
 
-		public void setNativeCfg(Properties nativeCfg) {
-			this.nativeCfg = nativeCfg;
-		}
-		
-		
-	}
-	
-	public static class ConsumerConfig{
-		private Properties nativeCfg;
-		private int consumerThread = Runtime.getRuntime().availableProcessors(); 
-		private List<List<Integer>> reconsume;
+    public static class ProducerConfig {
+        private Properties nativeCfg;
 
-		public List<List<Integer>> getReconsume() {
-			return reconsume;
-		}
+        public Properties getNativeCfg() {
+            return nativeCfg;
+        }
 
-		public void setReconsume(List<List<Integer>> reconsume) {
-			this.reconsume = reconsume;
-		}
+        public void setNativeCfg(Properties nativeCfg) {
+            this.nativeCfg = nativeCfg;
+        }
 
-		public int getConsumerThread() {
-			return consumerThread;
-		}
 
-		public void setConsumerThread(int consumerThread) {
-			this.consumerThread = consumerThread;
-		}
+    }
 
-		public Properties getNativeCfg() {
-			return nativeCfg;
-		}
+    public static class ConsumerConfig {
+        private Properties nativeCfg;
+        private int consumerThread = Runtime.getRuntime().availableProcessors();
+        private List<List<Integer>> reconsume;
 
-		public void setNativeCfg(Properties nativeCfg) {
-			this.nativeCfg = nativeCfg;
-		}
-		
-	}
+        public List<List<Integer>> getReconsume() {
+            return reconsume;
+        }
+
+        public void setReconsume(List<List<Integer>> reconsume) {
+            this.reconsume = reconsume;
+        }
+
+        public int getConsumerThread() {
+            return consumerThread;
+        }
+
+        public void setConsumerThread(int consumerThread) {
+            this.consumerThread = consumerThread;
+        }
+
+        public Properties getNativeCfg() {
+            return nativeCfg;
+        }
+
+        public void setNativeCfg(Properties nativeCfg) {
+            this.nativeCfg = nativeCfg;
+        }
+
+    }
 }

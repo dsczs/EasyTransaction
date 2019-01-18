@@ -1,36 +1,36 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
     <name>EasyTransaction transaction log Redis implement</name>
 
-	<artifactId>easytrans-log-redis-starter</artifactId>
+    <artifactId>easytrans-log-redis-starter</artifactId>
 
-	<parent>
-		<groupId>com.yiqiniu.easytrans</groupId>
-		<artifactId>easytrans</artifactId>
-		<version>${revision}</version>
-		<relativePath>../pom.xml</relativePath>
-	</parent>
+    <parent>
+        <groupId>com.yiqiniu.easytrans</groupId>
+        <artifactId>easytrans</artifactId>
+        <version>${revision}</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
 
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-	</properties>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
 
-	<dependencies>
+    <dependencies>
 
-		<dependency>
-			<groupId>biz.paluch.redis</groupId>
-			<artifactId>lettuce</artifactId>
-			<version>4.4.5.Final</version>
-		</dependency>
+        <dependency>
+            <groupId>biz.paluch.redis</groupId>
+            <artifactId>lettuce</artifactId>
+            <version>4.4.5.Final</version>
+        </dependency>
 
 
-		<dependency>
-			<groupId>com.yiqiniu.easytrans</groupId>
-			<artifactId>easytrans-core</artifactId>
-		</dependency>
+        <dependency>
+            <groupId>com.yiqiniu.easytrans</groupId>
+            <artifactId>easytrans-core</artifactId>
+        </dependency>
 
-	</dependencies>
+    </dependencies>
 
 </project>

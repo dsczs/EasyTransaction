@@ -7,7 +7,7 @@ spring:
     password: 123456
     driver-class-name: com.mysql.jdbc.Driver
 
-server: 
+server:
   port: 8080
 
 # RIBBON用，也可以直接开启Eureka
@@ -53,19 +53,19 @@ easytrans:
           buffer.memory: 3554432
           key.serializer: org.apache.kafka.common.serialization.StringSerializer
           value.serializer: org.apache.kafka.common.serialization.ByteArraySerializer
-#      consumer-cfg:
-#        reconsume: # when error occur,when the message will be reconsume.for efficent,please keep the array below small.
-#          - [3000,3] # retry every 3000 millseconds,for 3 times,after 3 time faliures will move to the next retry level
-#          - [60000,5] # retry every 1 minutes,for 3 times,after 3 time faliures will move to the next retry level
-#          - [300000,3] # retry every 5 minutes,for 3 times,after 3 time faliures will move to the next retry level
-#          - [3600000] # retry every 1 hour,forever
-#        native-cfg:
-#          bootstrap.servers: localhost:9092
-#          group.id: ${spring.application.name}
-#          enable.auto.commit: false # please do not change it
-#          max.poll.records: 100
-#          key.deserializer: org.apache.kafka.common.serialization.StringDeserializer
-#          value.deserializer: org.apache.kafka.common.serialization.ByteArrayDeserializer
+      #      consumer-cfg:
+      #        reconsume: # when error occur,when the message will be reconsume.for efficent,please keep the array below small.
+      #          - [3000,3] # retry every 3000 millseconds,for 3 times,after 3 time faliures will move to the next retry level
+      #          - [60000,5] # retry every 1 minutes,for 3 times,after 3 time faliures will move to the next retry level
+      #          - [300000,3] # retry every 5 minutes,for 3 times,after 3 time faliures will move to the next retry level
+      #          - [3600000] # retry every 1 hour,forever
+      #        native-cfg:
+      #          bootstrap.servers: localhost:9092
+      #          group.id: ${spring.application.name}
+      #          enable.auto.commit: false # please do not change it
+      #          max.poll.records: 100
+      #          key.deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      #          value.deserializer: org.apache.kafka.common.serialization.ByteArrayDeserializer
 
 
 

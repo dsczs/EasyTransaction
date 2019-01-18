@@ -1,7 +1,7 @@
 package com.yiqiniu.easytrans.queue.producer;
 
 public class EasyTransMsgPublishResult {
-	
+
     private String messageId;
     private String topic;
 

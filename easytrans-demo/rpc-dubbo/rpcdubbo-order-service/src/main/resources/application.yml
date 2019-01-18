@@ -7,7 +7,7 @@ spring:
     password: 123456
     driver-class-name: com.mysql.jdbc.Driver
 
-server: 
+server:
   port: 8080
 
 easytrans:
@@ -17,7 +17,7 @@ easytrans:
   rpc:
     dubbo:
       enabled: true
-      
+
   stringcodec:
     zk:
       zooKeeperUrl: ${easytrans.master.zk.zooKeeperUrl}
